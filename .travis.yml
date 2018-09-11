@@ -9,15 +9,15 @@ script:
   - docker run leroymendes17/react-test npm run test -- --coverage
 
 after_success:
-  - docker build -t leroymendes17/multi-client ./client
-  - docker build -t leroymendes17/multi-nginx ./nginx
-  - docker build -t leroymendes17/multi-server ./server
-  - docker build -t leroymendes17/multi-worker ./worker
+  - docker build -t leroymendes/multi-client ./client
+  - docker build -t leroymendes/multi-nginx ./nginx
+  - docker build -t leroymendes/multi-server ./server
+  - docker build -t leroymendes/multi-worker ./worker
   # login to docker CLI
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
   # push images to docker hub
-  - docker push leroymendes17/multi-client
-  - docker push leroymendes17/multi-nginx
-  - docker push leroymendes17/multi-server
-  - docker push leroymendes17/multi-worker
+  - docker push leroymendes/multi-client
+  - docker push leroymendes/multi-nginx
+  - docker push leroymendes/multi-server
+  - docker push leroymendes/multi-worker
 
