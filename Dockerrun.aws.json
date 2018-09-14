@@ -1,0 +1,37 @@
+{
+    "AWSEBDockerrunVersion": 2,
+    "containerDefinitions": [
+        {
+            "name": "client",
+            "image": "leroymendes/multi-client",
+            "hostname": "client",
+            "essential": false
+        },
+        {
+            "name": "server",
+            "image": "leroymendes/multi-server",
+            "hostname": "api",
+            "essential":false
+        },
+        {
+            "name": "worker",
+            "image": "leroymendes/multi-worker",
+            "hostname": "worker",
+            "essential":false
+        },
+        {
+            "name": "nginx",
+            "image": "leroymendes/multi-nginx",
+            "hostname": "nginx",
+            "essential":true,
+            "portMappings": [
+                {
+                    "hostPort": 80,
+                    "ContainerPort": 80
+                }
+            ],
+            "links":["client","server"]
+        }
+    ]
+
+}

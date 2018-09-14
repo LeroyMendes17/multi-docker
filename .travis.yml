@@ -3,10 +3,10 @@ services:
   - docker
 
 before_install:
-  - docker build -t leroymendes17/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t leroymendes/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run leroymendes17/react-test npm run test -- --coverage
+  - docker run leroymendes/react-test npm run test -- --coverage
 
 after_success:
   - docker build -t leroymendes/multi-client ./client
@@ -21,3 +21,15 @@ after_success:
   - docker push leroymendes/multi-server
   - docker push leroymendes/multi-worker
 
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "multi-docker"
+  env: "MultiDocker-env"
+  bucket_name: "elasticbeanstalk-us-east-2-144846369010"
+  bucket_path: "docker-multi"
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secret_access_key:
+    secure: "$AWS_SECRET_KEY"
